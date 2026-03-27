@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about a registered user (learner, developer, or admin).",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique ID of the user." },
+        "email": { "type": "string", "format": "email", "description": "The email address of the user." },
+        "displayName": { "type": "string", "description": "The display name of the user." },
+        "photoURL": { "type": "string", "format": "url", "description": "The URL of the user's profile picture." },
+        "role": { "type": "string", "enum": ["learner", "developer", "admin"], "description": "The role of the user." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "The timestamp when the user profile was created." }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "Inquiry": {
+      "title": "Enterprise Inquiry",
+      "description": "A request from a company looking to hire talent.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the contact person." },
+        "email": { "type": "string", "format": "email", "description": "The email address of the contact person." },
+        "company": { "type": "string", "description": "The name of the company." },
+        "needs": { "type": "string", "description": "A description of the company's talent needs." },
+        "budget": { "type": "string", "description": "The estimated budget for the project." },
+        "deadline": { "type": "string", "description": "The project deadline." },
+        "type": { "type": "string", "enum": ["enterprise"], "description": "The type of inquiry." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "The timestamp when the inquiry was submitted." }
+      },
+      "required": ["name", "email", "company", "needs", "type", "createdAt"]
+    },
+    "Application": {
+      "title": "Developer Application",
+      "description": "An application from a developer looking to join the network.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the developer." },
+        "email": { "type": "string", "format": "email", "description": "The email address of the developer." },
+        "stack": { "type": "string", "description": "The developer's tech stack." },
+        "experience": { "type": "string", "enum": ["junior", "mid", "senior"], "description": "The developer's experience level." },
+        "portfolio": { "type": "string", "format": "url", "description": "The URL of the developer's portfolio or GitHub." },
+        "availability": { "type": "string", "enum": ["full-time", "part-time", "freelance"], "description": "The developer's availability." },
+        "type": { "type": "string", "enum": ["developer"], "description": "The type of application." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "The timestamp when the application was submitted." }
+      },
+      "required": ["name", "email", "stack", "experience", "portfolio", "availability", "type", "createdAt"]
+    },
+    "Course": {
+      "title": "Training Course",
+      "description": "A training course offered by Coders 4 Afrika.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the course." },
+        "description": { "type": "string", "description": "A description of the course." },
+        "duration": { "type": "string", "description": "The duration of the course." },
+        "level": { "type": "string", "description": "The difficulty level of the course." },
+        "icon": { "type": "string", "description": "The icon name for the course." },
+        "color": { "type": "string", "description": "The brand color associated with the course." }
+      },
+      "required": ["title", "description", "duration", "level", "icon", "color"]
+    },
+    "Developer": {
+      "title": "Marketplace Developer",
+      "description": "A developer profile visible in the talent marketplace.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the developer." },
+        "role": { "type": "string", "description": "The developer's role (e.g., Senior Full Stack)." },
+        "location": { "type": "string", "description": "The developer's location." },
+        "experience": { "type": "string", "description": "Years of experience." },
+        "skills": { "type": "array", "items": { "type": "string" }, "description": "The developer's skills." },
+        "rating": { "type": "number", "description": "The developer's rating." },
+        "image": { "type": "string", "format": "url", "description": "The URL of the developer's profile picture." },
+        "isVetted": { "type": "boolean", "description": "Whether the developer is vetted." }
+      },
+      "required": ["name", "role", "location", "experience", "skills", "rating", "image", "isVetted"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles."
+    },
+    "inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "Collection of enterprise inquiries."
+    },
+    "applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Collection of developer applications."
+    },
+    "courses/{courseId}": {
+      "schema": "Course",
+      "description": "Collection of training courses."
+    },
+    "developers/{developerId}": {
+      "schema": "Developer",
+      "description": "Collection of developers in the marketplace."
+    }
+  }
+}
